@@ -13,7 +13,7 @@ class NasdaqController:
 
         self.filenames = {
             "otherlisted": "data/otherlisted.txt",
-            "nasdaqlisted": "data/nasdaqlisted.txt"
+            "nasdaqlisted": "data/nasdaqlisted.txt",
         }
 
         # Update lists only if update = True
@@ -22,7 +22,7 @@ class NasdaqController:
             self.ftp = FTP("ftp.nasdaqtrader.com")
             self.ftp.login()
 
-            #print("Nasdaq Controller: Welcome message: " + self.ftp.getwelcome())
+            # print("Nasdaq Controller: Welcome message: " + self.ftp.getwelcome())
 
             self.ftp.cwd("SymbolDirectory")
 
@@ -34,10 +34,11 @@ class NasdaqController:
                         if exc.errno != errno.EEXIST:
                             raise
 
-                self.ftp.retrbinary("RETR " + filename +
-                                    ".txt", open(filepath, 'wb').write)
+                self.ftp.retrbinary(
+                    "RETR " + filename + ".txt", open(filepath, "wb").write
+                )
 
-        all_listed = open("data/alllisted.txt", 'w')
+        all_listed = open("data/alllisted.txt", "w")
 
         for filename, filepath in self.filenames.items():
             with open(filepath, "r") as file_reader:
