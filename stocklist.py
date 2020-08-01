@@ -22,7 +22,7 @@ class NasdaqController:
             self.ftp = FTP("ftp.nasdaqtrader.com")
             self.ftp.login()
 
-            # print("Nasdaq Controller: Welcome message: " + self.ftp.getwelcome())
+            print("Nasdaq Controller: Welcome message: " + self.ftp.getwelcome())
 
             self.ftp.cwd("SymbolDirectory")
 
@@ -34,9 +34,7 @@ class NasdaqController:
                         if exc.errno != errno.EEXIST:
                             raise
 
-                self.ftp.retrbinary(
-                    "RETR " + filename + ".txt", open(filepath, "wb").write
-                )
+                self.ftp.retrbinary("RETR " + filename + ".txt", open(filepath, "wb").write)
 
         all_listed = open("data/alllisted.txt", "w")
 

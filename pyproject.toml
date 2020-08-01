@@ -1,0 +1,12 @@
+[tool.black]
+line-length = 120
+exclude = '''
+(
+  /(
+      \.git         # exclude a few common directories in the
+    | \.__pycache__          # root of the project
+    | \.venv
+    | docs
+  )/
+)
+'''
