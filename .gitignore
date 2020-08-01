@@ -1,1 +1,8 @@
+*egg-info
 venv
+env
+ven
+.idea
+.pyc
+.vscode
+__pycache__
