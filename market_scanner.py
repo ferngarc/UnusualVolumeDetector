@@ -12,9 +12,7 @@ from tqdm import tqdm
 
 class mainObj:
     def getData(self, ticker):
-        currentDate = datetime.datetime.strptime(
-            date.today().strftime("%Y-%m-%d"), "%Y-%m-%d"
-        )
+        currentDate = datetime.datetime.strptime(date.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
         pastDate = currentDate - dateutil.relativedelta.relativedelta(months=5)
         sys.stdout = open(os.devnull, "w")
         data = yf.download(ticker, pastDate, currentDate)
@@ -66,23 +64,18 @@ class mainObj:
     def main_func(self, cutoff):
         StocksController = NasdaqController(True)
         list_of_tickers = StocksController.getList()
-        currentDate = datetime.datetime.strptime(
-            date.today().strftime("%Y-%m-%d"), "%Y-%m-%d"
-        )
+        currentDate = datetime.datetime.strptime(date.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
         start_time = time.time()
+        print(start_time)
+        print(len(list_of_tickers), "LENGTH OF TRACKERS")
         for x in tqdm(list_of_tickers):
             d = self.find_anomalies_two(self.getData(x), cutoff)
             if d["Dates"]:
                 for i in range(len(d["Dates"])):
-                    if (
-                        self.days_between(str(currentDate)[:-9], str(d["Dates"][i]))
-                        <= 3
-                    ):
+                    if self.days_between(str(currentDate)[:-9], str(d["Dates"][i])) <= 3:
                         self.customPrint(d, x)
 
-        print(
-            "\n\n\n\n--- this took %s seconds to run ---" % (time.time() - start_time)
-        )
+        print("\n\n\n\n--- this took %s seconds to run ---" % (time.time() - start_time))
 
 
 # input desired anomaly standard deviation cuttoff

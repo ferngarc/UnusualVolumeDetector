@@ -13,9 +13,7 @@ import numpy as np
 
 class mainObj:
     def getData(self, ticker):
-        currentDate = datetime.datetime.strptime(
-            date.today().strftime("%Y-%m-%d"), "%Y-%m-%d"
-        )
+        currentDate = datetime.datetime.strptime(date.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
         pastDate = currentDate - dateutil.relativedelta.relativedelta(months=4)
         data = yf.download(ticker, pastDate, currentDate)
         return data[["Volume"]]
@@ -37,9 +35,7 @@ class mainObj:
         ################
         fig, ax = plt.subplots(figsize=(15, 7))
         data.plot(kind="bar", ax=ax)
-        ax.get_yaxis().set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-        )
+        ax.get_yaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
         mplcursors.cursor(hover=True)
         ################
         plt.show()
@@ -48,13 +44,9 @@ class mainObj:
         data.reset_index(level=0, inplace=True)
         fig, ax = plt.subplots(figsize=(15, 7))
         ax.plot(data["Date"], data["Volume"])
-        ax.get_yaxis().set_major_formatter(
-            matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ","))
-        )
+        ax.get_yaxis().set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ",")))
         mplcursors.cursor(hover=True)
-        currentDate = datetime.datetime.strptime(
-            date.today().strftime("%Y-%m-%d"), "%Y-%m-%d"
-        )
+        currentDate = datetime.datetime.strptime(date.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
         pastDate = currentDate - dateutil.relativedelta.relativedelta(months=4)
         plt.show()
 
@@ -77,7 +69,7 @@ class mainObj:
 main = mainObj()
 
 # commands
-data = main.getData("KODK")
+data = main.getData("AAPL")
 # main.printData(data)
 # main.barGraph(data)
 main.lineGraph(data)
